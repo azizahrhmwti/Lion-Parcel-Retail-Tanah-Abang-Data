@@ -61,3 +61,24 @@ pytest
 ```
 
 Database SQLite lokal tersimpan sebagai `lion_parcel.db` dan diabaikan oleh Git.
+
+## Deploy ke Vercel
+
+Project ini sudah memiliki `vercel.json` dan entrypoint `api/index.py` untuk Vercel.
+
+```bash
+npm install -g vercel
+vercel login
+vercel
+```
+
+Sebelum deploy production, tambahkan Environment Variables di Vercel:
+
+- `APP_SECRET_KEY`: secret random yang panjang.
+- `DATABASE_URL`: URL database PostgreSQL managed, misalnya Neon, Supabase, atau Vercel Postgres.
+
+Jangan memakai `sqlite:///./lion_parcel.db` untuk production Vercel karena filesystem serverless tidak persisten. SQLite tetap digunakan untuk development lokal. Setelah environment variable disimpan, jalankan deploy production:
+
+```bash
+vercel --prod
+```
