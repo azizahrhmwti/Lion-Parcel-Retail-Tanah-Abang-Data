@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Lion Parcel Leads{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+{% if user %}<aside class="sidebar"><a class="brand" href="/"><span class="brand-mark">LP</span><span>Lion Parcel<br><small>Tanah Abang</small></span></a><nav><a href="/" class="{% if request.url.path == '/' %}active{% endif %}">Dashboard</a><a href="/leads">Database Leads</a>{% if user.role in ['data_entry','admin'] %}<a href="/leads/new">Tambah Leads</a>{% endif %}{% if user.role in ['router','admin'] %}<a href="/routing">Routing Visit</a>{% endif %}{% if user.role == 'admin' %}<a href="/users">Kelola User</a>{% endif %}</nav><div class="sidebar-foot"><span class="avatar">{{ user.name[0] }}</span><div><strong>{{ user.name }}</strong><small>{{ user.role.replace('_', ' ')|title }}</small></div><a class="logout" href="/logout">Keluar</a></div></aside><main class="main">{% block content %}{% endblock %}</main>{% else %}{% block auth_content %}{% endblock %}{% endif %}
+</body></html>
